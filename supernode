@@ -45,7 +45,7 @@ for i in $list; do
 # needs script https://github.com/eulenfunk/scripts/blob/master/dhcpleases
 if [ -r /opt/freifunk/dhcpleases ] ; then
   totalleases=2040
-  activeleases=$(/opt/freifunk/dhcpleases|grep "^| Total"|cut -d":" -f2|sed s/\ //)
+  activeleases=$(python /opt/freifunk/dhcpleases|grep "^| Total"|cut -d":" -f2|sed s/\ //)
   remainingleases=$(($totalleases - $activeleases))
   actwarn=$(($totalleases * 75 / 100))
   actcrit=$(($totalleases * 90 / 100))
