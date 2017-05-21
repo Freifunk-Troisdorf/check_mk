@@ -49,7 +49,7 @@ if [ -r /var/lib/dhcp/dhcpd.leases ] ; then
   remainingleases=$(($totalleases - $activeleases))
   actwarn=$(($totalleases * 75 / 100))
   actcrit=$(($totalleases * 90 / 100))
-  echo "P Dhcp-Leases active-leases=$usedleases.0;5:$actwarn;1:$actcrit active:$activeleases remaining:$remainingleases pool=$totalleases";
+  echo "P Dhcp-Leases active-leases=$activeleases.0;5:$actwarn;1:$actcrit active:$activeleases remaining:$remainingleases pool=$totalleases";
  fi
 
 #L2TP
