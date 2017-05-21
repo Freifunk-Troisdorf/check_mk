@@ -43,17 +43,13 @@ for i in $list; do
 
 ## isc-dhcpd-server leases
 # needs script https://github.com/eulenfunk/scripts/blob/master/dhcpleases
-if [ -r /opt/eulenfunk/dhcpleases ] ; then
-  dhcpconf=/etc/dhcp/dhcpd.conf
-  dhcprange=$(confline $dhcpconf range)
-  dhcpstart=$(echo $dhcprange|cut -d" " -f2)
-  dhcpend=$(echo $dhcprange|cut -d" " -f3)
-  totalleases=$(($(ati $dhcpend) - $(ati $dhcpstart)))
-  activeleases=$(/opt/eulenfunk/dhcpleases|grep "^| Total"|cut -d":" -f2|sed s/\ //)
+if [ -r /var/lib/dhcp/dhcpd.leases ] ; then
+  activeleases=$(cat /var/lib/dhcp/dhcpd.leases | grep "binding state active;" | wc -l)
+  totalleases=2040
   remainingleases=$(($totalleases - $activeleases))
   actwarn=$(($totalleases * 75 / 100))
   actcrit=$(($totalleases * 90 / 100))
-  echo "P Dhcp-Leases active-leases=$activeleases.0;5:$actwarn;1:$actcrit active:$activeleases remaining:$remainingleases pool=$totalleases";
+  echo "P Dhcp-Leases active-leases=$usedleases.0;5:$actwarn;1:$actcrit active:$activeleases remaining:$remainingleases pool=$totalleases";
  fi
 
 #L2TP
