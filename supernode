@@ -77,4 +77,4 @@ echo "P Conntrack conntrack=$conntrack.0;$wlow:$wlimit;$clow:$climit|conntrack_r
   radvd=$(ps -ef | grep "radvd" | grep -v "grep" | wc -l)
   dhcpd=$(ps -ef | grep "dhcpd" | grep -v "grep" | wc -l)
   named=$(ps -ef | grep "named" | grep -v "grep" | wc -l)
-  echo "P Tunneldigger tunneldigger=$tunneldigger_c;1;0;0"
+  echo "P Tunneldigger tunneldigger=$tunneldigger_c;1;0"
