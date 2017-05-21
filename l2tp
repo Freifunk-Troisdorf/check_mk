@@ -39,4 +39,4 @@ l_tunnel=$(ip a |grep l2tp | grep br-nodes -c);
 tunneldigger=$(ifconfig|grep br-nodes -c);
 
 #Output
-echo "P L2TP Clients=$l_tunnel.0;1:30;0:150|Tunneldiggerbridges=$tunneldigger.0;0.1:1;0.1:2; L2TP-Clients:$l_tunnel Tunneldiggerbridges:$tunneldigger"
+echo "P L2TP Clients=$l_tunnel.0;1:100;0:150|Tunneldiggerbridges=$tunneldigger.0;0.1:1;0.1:2; L2TP-Clients:$l_tunnel Tunneldiggerbridges:$tunneldigger"
