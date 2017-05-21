@@ -35,7 +35,7 @@ rm $TFILE
 echo "$logout"
 
 #Get data
-l_tunnel=$(ip a |grep l2tp);
+l_tunnel=$(ip a |grep l2tp | grep br-nodes -c);
 tunneldigger=$(ifconfig|grep br-nodes -c);
 
 #Output
