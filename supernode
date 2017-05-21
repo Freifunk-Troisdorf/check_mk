@@ -43,6 +43,14 @@ for i in $list; do
 
 ## isc-dhcpd-server leases
 # needs script https://github.com/eulenfunk/scripts/blob/master/dhcpleases
+if [ -r /opt/freifunk/dhcpleases ] ; then
+  totalleases=2040
+  activeleases=$(/opt/freifunk/dhcpleases|grep "^| Total"|cut -d":" -f2|sed s/\ //)
+  remainingleases=$(($totalleases - $activeleases))
+  actwarn=$(($totalleases * 75 / 100))
+  actcrit=$(($totalleases * 90 / 100))
+  echo "P Dhcp-Leases active-leases=$activeleases.0;5:$actwarn;1:$actcrit active:$activeleases remaining:$remainingleases pool=$totalleases";
+ fi
 if [ -r /var/lib/dhcp/dhcpd.leases ] ; then
   activeleases=$(cat /var/lib/dhcp/dhcpd.leases | grep "binding state active;" | wc -l)
   totalleases=2040
