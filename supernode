@@ -19,21 +19,8 @@ function ati # ipv4 to longint
 
 ## static data
 bat_version=$(batctl -v);
-fastd_version=$(fastd -v|cut -d ' ' -f 2);
 kernel=$(uname -r);
 release=$(lsb_release -ds);
-
-## ubuntu-Status
-echo "0 Ubuntu-Release Ubuntu-Release=$release; $release - Kernel $kernel"
-## ubuntu patch status
-nupdates=$(/usr/lib/update-notifier/update-motd-updates-available|grep "packages can be updated"|cut -d" " -f1)
-supdates=$(/usr/lib/update-notifier/update-motd-updates-available|grep "updates are security updates"|cut -d" " -f1)
-reboot=0
-if [ -x /usr/lib/update-notifier/update-motd-reboot-required ]; then
-  reboot=$(/usr/lib/update-notifier/update-motd-reboot-required|grep \*\*\**\*\*\*|wc -l)
- fi
-echo "P Ubuntu-Patchstatus SecurityUpdates-waiting=$supdates.0;0:0.5;0:1|RegularUpdates-waiting=$nupdates.0;0:10;0:15|Reboot-waiting=$reboot.0;0:0.5;0:1"
-
 
 ## Batman
 echo "0 Batman-Version Version=$bat_version; $bat_version"
@@ -52,23 +39,6 @@ for i in $list; do
     climit=$(( $router * 10 ))
     echo "P Batman-$b Router=$router.0;5:250;1:500|Clients=$clients.0;$wlow.0:$wlimit.0;$clow.0:$climit.0|Gateways=$gateways.0;0:3;0:5;|IPs=$ips.0";
    fi;
- done
-
-## Fastd
-echo "0 Fastd_Version Version=$fastd_version; Fastd $fastd_version ";
-fastdp=/etc/fastd
-list=$(ls -F $fastdp|grep /|cut -d '/' -f 1)
-for fasti in $list ; do
-  clients=$(nc -U $(cat $fastdp/$fasti/fastd.conf|grep -v '^$\|^\s*\#'|sed -e "s/[[:space:]]\+/ /g"|sed s/^\ //|sed s/\;//|grep -i 'status socket'|cut -d '"' -f 2)|grep '"established"' -o|wc -l);
-  interface=$(confline $fastdp/$fasti/fastd.conf interface|cut -d '"' -f 2)
-  mtu=$(confline $fastdp/$fasti/fastd.conf mtu|cut -d ' ' -f 2|cut -d ';' -f1)
-  port=$(confline $fastdp/$fasti/fastd.conf bind|cut -d ':' -f 2|cut -d ' ' -f1)
-  limit=$(confline $fastdp/$fasti/fastd.conf 'peer limit'|cut -d ' ' -f 3|cut -d ';' -f1)
-  climit=$(( $limit * 95 / 100 ))
-  wlimit=$(( $limit * 90 / 100 ))
-  clow=$(( $limit / 100 ))
-  wlow=$(( $limit * 5 / 100 ))
-  echo "P Fastd_Clients_$interface Clients=$clients.0;$wlow:$wlimit;$clow:$climit; Interface: $interface, Port: $port, MTU: $mtu, Peer Limit: $limit"
  done
 
 ## isc-dhcpd-server leases
