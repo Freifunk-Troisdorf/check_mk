@@ -71,10 +71,10 @@ echo "P Conntrack conntrack=$conntrack.0;$wlow:$wlimit;$clow:$climit|conntrack_r
 
 ## Processes
   
-  tunneldigger=$(ps -ef | grep "start-broker.sh" | grep -v "grep" | wc -l)
+  tunneldigger_c=$(ps -ef | grep "start-broker.sh" | grep -v "grep" | wc -l)
   bird=$(ps -ef | grep "/usr/sbin/bird" | grep -v "grep" | wc -l)
   bird6=$(ps -ef | grep "/usr/sbin/bird6" | grep -v "grep" | wc -l)
   radvd=$(ps -ef | grep "radvd" | grep -v "grep" | wc -l)
   dhcpd=$(ps -ef | grep "dhcpd" | grep -v "grep" | wc -l)
   named=$(ps -ef | grep "named" | grep -v "grep" | wc -l)
-  echo "P Tunneldigger tunneldigger=$tunneldigger;0;0
+  echo "P Tunneldigger tunneldigger=$tunneldigger_c;0;0
