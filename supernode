@@ -47,8 +47,8 @@ if [ -r /var/lib/dhcp/dhcpd.leases ] ; then
   activeleases=$(cat /var/lib/dhcp/dhcpd.leases | grep "binding state active;" | wc -l)
   totalleases=2040
   remainingleases=$(($totalleases - $activeleases))
-  actwarn=$(($totalleases * 75 / 100))
-  actcrit=$(($totalleases * 90 / 100))
+  actwarn=$(($totalleases * 90 / 100))
+  actcrit=$(($totalleases * 95 / 100))
   echo "P Dhcp-Leases active-leases=$activeleases.0;5:$actwarn;1:$actcrit active:$activeleases remaining:$remainingleases pool=$totalleases";
  fi
 
