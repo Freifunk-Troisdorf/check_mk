@@ -170,10 +170,10 @@ function float_cond()
 STb=/usr/bin
 
 # Set up the variables to take the arguments
-DLw=2.00
-DLc=1.00
-ULw=1.00
-ULc=0.50
+DLw=150.00
+DLc=100.00
+ULw=150.00
+ULc=100.00
 Loc=e
 # Server ID, if 0 using nearest server
 SEs=0
