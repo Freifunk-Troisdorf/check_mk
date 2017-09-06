@@ -1,0 +1,22 @@
+#!/bin/bash
+hostname=$(/bin/hostname)
+check_routes6=$(/sbin/ip -6 route show table 42 | grep "/64 via 2a03:2260:121:$netv6::2" | wc -l)
+
+if  [ $hostname = troisdorf4 ]; then
+check_routes6=$(/sbin/ip -6 route show table 42 | grep "/64 via 2a03:2260:121:4000::2" | wc -l)
+elif [ $hostname == troisdorf5 ]; then
+check_routes6=$(/sbin/ip -6 route show table 42 | grep "/64 via 2a03:2260:121:5000::2" | wc -l)
+elif [ $hostname == troisdorf6 ]; then
+check_routes6=$(/sbin/ip -6 route show table 42 | grep "/64 via 2a03:2260:121:6000::2" | wc -l)
+elif [ $hostname == troisdorf7 ]; then
+check_routes6=$(/sbin/ip -6 route show table 42 | grep "/64 via 2a03:2260:121:7000::2" | wc -l)
+fi
+
+if [ $check_routes6 -eq "3" ]; then
+	status=0
+	statustxt=OK
+else
+	status=2
+	statustxt=CRITICAL
+fi
+echo "$status ROUTUNGv6 ROUTES=§check_routes6;3;2;0; $statustxt"
