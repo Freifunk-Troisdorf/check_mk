@@ -12,7 +12,7 @@ elif [ $hostname == troisdorf7 ]; then
 check_routes4=$(/sbin/ip route show table 42 | grep '/16 via 10.188.96.2' | wc -l)
 fi
 
-if [ $check_routes4 -eq "3" ]; then
+if [ $check_routes4 -eq "1" ]; then
 	status=0
 	statustxt=OK
 else
