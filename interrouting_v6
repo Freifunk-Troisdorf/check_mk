@@ -19,4 +19,4 @@ else
 	status=2
 	statustxt=CRITICAL
 fi
-echo "$status ROUTUNGv6 ROUTES=§check_routes6;3;2;0; $statustxt"
+echo "$status ROUTUNGv6 ROUTES=$check_routes6;3;2;0; $statustxt"
