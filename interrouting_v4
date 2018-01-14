@@ -1,15 +1,15 @@
 #!/bin/bash
 hostname=$(/bin/hostname)
-check_routes4=$(/sbin/ip route show table 42 | grep '/16 via 10.188.'$netv4'.2' | wc -l)
+check_routes4=$(/sbin/ip route show table 42 | grep '/19 via 10.188.'$netv4'.2' | wc -l)
 
 if  [ $hostname = troisdorf4 ]; then
-check_routes4=$(/sbin/ip route show table 42 | grep '/16 via 10.188.0.2' | wc -l)
+check_routes4=$(/sbin/ip route show table 42 | grep '/19 via 10.188.0.2' | wc -l)
 elif [ $hostname == troisdorf5 ]; then
-check_routes4=$(/sbin/ip route show table 42 | grep '/16 via 10.188.32.2' | wc -l)
+check_routes4=$(/sbin/ip route show table 42 | grep '/19 via 10.188.32.2' | wc -l)
 elif [ $hostname == troisdorf6 ]; then
-check_routes4=$(/sbin/ip route show table 42 | grep '/16 via 10.188.64.2' | wc -l)
+check_routes4=$(/sbin/ip route show table 42 | grep '/19 via 10.188.64.2' | wc -l)
 elif [ $hostname == troisdorf7 ]; then
-check_routes4=$(/sbin/ip route show table 42 | grep '/16 via 10.188.96.2' | wc -l)
+check_routes4=$(/sbin/ip route show table 42 | grep '/19 via 10.188.96.2' | wc -l)
 fi
 
 if [ $check_routes4 -eq "1" ]; then
